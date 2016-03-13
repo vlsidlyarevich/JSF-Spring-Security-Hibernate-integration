@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title>Login page</title>
+</h:head>
+
+<h:body>
+    <form action="/j_spring_security_check" method="post">
+        <h:panelGroup layout="block">
+            <h:outputText value="Spring Security"/>
+        </h:panelGroup>
+        <h:panelGrid columns="1" style="text-align: center">
+            <h:inputText a:placeholder="Username" id="j_username"
+                         required="true"/>
+            <h:inputSecret a:placeholder="Password" id="j_password"
+                           required="true"/>
+        </h:panelGrid>
+        <h:panelGrid columns="2" style="text-align: center">
+            <input type="submit" value="Login"/>
+        </h:panelGrid>
+
+    </form>
+</h:body>
+</html>

@@ -5,6 +5,7 @@ import com.github.vlsidlyarevich.JSFSpringSecHibernate.utils.HibernateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
@@ -27,6 +28,17 @@ public class UserDAO {
             userId = results.get(0) + 1;
         }
         return userId;
+    }
+
+    public UserEntity findUserByLogin(String login){
+
+        List<UserEntity> users = new ArrayList<UserEntity>();
+
+        Query query = session.createQuery("from UserEntity u where u.login =: login");
+        query.setParameter("login",login);
+        users = query.list();
+        if(users.size()>0)return users.get(0);
+        return null;
     }
 
 
