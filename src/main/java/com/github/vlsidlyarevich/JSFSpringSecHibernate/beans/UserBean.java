@@ -1,7 +1,7 @@
 package com.github.vlsidlyarevich.JSFSpringSecHibernate.beans;
 
 
-import com.github.vlsidlyarevich.JSFSpringSecHibernate.dao.UserDAO;
+import com.github.vlsidlyarevich.JSFSpringSecHibernate.dao.UserDAOImpl;
 import com.github.vlsidlyarevich.JSFSpringSecHibernate.entities.UserEntity;
 
 import javax.faces.bean.ManagedBean;
@@ -17,10 +17,10 @@ public class UserBean {
     private String role;
 
     public String saveUser(){
-        UserDAO userDAO = new UserDAO();
-        Integer userID = userDAO.getId();
+        UserDAOImpl userDAOImpl = new UserDAOImpl();
+        Integer userID = userDAOImpl.getId();
         UserEntity userEntity = new UserEntity(userID,name,role,login,password);
-        userDAO.save(userEntity);
+        userDAOImpl.save(userEntity);
         System.out.println("User successfully saved.");
         return "output";
     }

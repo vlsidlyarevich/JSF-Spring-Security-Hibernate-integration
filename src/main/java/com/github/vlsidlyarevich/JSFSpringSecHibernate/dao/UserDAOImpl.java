@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAOImpl {
 
     Session session = HibernateUtils.getSessionFactory().openSession();
 

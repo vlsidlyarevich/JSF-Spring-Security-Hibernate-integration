@@ -1,7 +1,7 @@
 package com.github.vlsidlyarevich.JSFSpringSecHibernate.services;
 
 
-import com.github.vlsidlyarevich.JSFSpringSecHibernate.dao.UserDAO;
+import com.github.vlsidlyarevich.JSFSpringSecHibernate.dao.UserDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +20,14 @@ import java.util.List;
 public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDAOImpl userDAOImpl;
 
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
         UserDetails userDetails = null;
-        com.github.vlsidlyarevich.JSFSpringSecHibernate.entities.UserEntity userEntity = userDAO.findUserByLogin(login);
+        com.github.vlsidlyarevich.JSFSpringSecHibernate.entities.UserEntity userEntity = userDAOImpl.findUserByLogin(login);
 
         if(userEntity == null)
             throw new UsernameNotFoundException("user not found");
