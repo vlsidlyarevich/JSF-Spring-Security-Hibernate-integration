@@ -1,18 +1,24 @@
 package com.github.vlsidlyarevich.JSFSpringSecHibernate.dao;
 
 import com.github.vlsidlyarevich.JSFSpringSecHibernate.entities.UserEntity;
-import com.github.vlsidlyarevich.JSFSpringSecHibernate.utils.HibernateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl {
+public class UserDAOImpl implements UserDAO {
 
-    Session session = HibernateUtils.getSessionFactory().openSession();
+    @Autowired
+    private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
     public void save(UserEntity userEntity){
+        Session session = this.sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(userEntity);
         session.getTransaction().commit();
@@ -20,6 +26,7 @@ public class UserDAOImpl {
     }
 
     public Integer getId (){
+        Session session = this.sessionFactory.getCurrentSession();
         String hql = "select max(user.id) from UserEntity user";
         Query query = session.createQuery(hql);
         List<Integer> results = query.list();
@@ -31,7 +38,7 @@ public class UserDAOImpl {
     }
 
     public UserEntity findUserByLogin(String login){
-
+        Session session = this.sessionFactory.getCurrentSession();
         List<UserEntity> users = new ArrayList<UserEntity>();
 
         Query query = session.createQuery("from UserEntity u where u.login =: login");

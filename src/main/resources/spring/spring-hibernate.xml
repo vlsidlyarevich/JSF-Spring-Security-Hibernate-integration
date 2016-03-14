@@ -14,27 +14,38 @@
              http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 
-       <context:component-scan base-package="com.github.*"/>
+    <context:component-scan base-package="com.github.*"/>
 
-       <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-              <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-              <beans:property name="url" value="jdbc:mysql://localhost:3306/myfirstdb"/>
-              <beans:property name="username" value="root"/>
-              <beans:property name="password" value="root"/>
-       </beans:bean>
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/myfirstdb"/>
+        <beans:property name="username" value="root"/>
+        <beans:property name="password" value="root"/>
+    </beans:bean>
 
+    <beans:bean id="hibernate4AnnotatedSessionFactory"
+                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="configLocation" value="classpath:hibernate/hibernate.cfg.xml"/>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+                <beans:prop key="hibernate.format_sql">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
 
-       <beans:bean id="hibernate4AnnotatedSessionFactory"
-                   class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-              <beans:property name="dataSource" ref="dataSource"/>
-              <beans:property name="configLocation" value="classpath:hibernate/hibernate.cfg.xml"/>
-              <beans:property name="hibernateProperties">
-                     <beans:props>
-                            <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
-                            <beans:prop key="hibernate.format_sql">true</beans:prop>
-                     </beans:props>
-              </beans:property>
-       </beans:bean>
+    <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="userDAO" class="com.github.vlsidlyarevich.JSFSpringSecHibernate.dao.UserDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="userService" class="com.github.vlsidlyarevich.JSFSpringSecHibernate.services.CustomUserDetailService">
+        <beans:property name="userDAOImpl" ref="userDAO"/>
+    </beans:bean>
 
 
 </beans:beans>
