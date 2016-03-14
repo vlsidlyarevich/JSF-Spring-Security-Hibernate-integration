@@ -43,8 +43,8 @@
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
 
-    <beans:bean id="userService" class="com.github.vlsidlyarevich.JSFSpringSecHibernate.services.CustomUserDetailService">
-        <beans:property name="userDAOImpl" ref="userDAO"/>
+    <beans:bean id="userDetailService" class="com.github.vlsidlyarevich.JSFSpringSecHibernate.services.CustomUserDetailService">
+        <beans:property name="userDAO" ref="userDAO"/>
     </beans:bean>
 
 
