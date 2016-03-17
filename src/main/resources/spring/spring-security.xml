@@ -14,21 +14,11 @@
         <logout logout-success-url="/pages/login.xhtml" />
     </http>
 
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="test1" password="1" authorities="ROLE_USER" />
-                <user name="test" password="2" authorities="ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
-<!--
 
-    &lt;!&ndash;add  <password-encoder hash="md5"/>&ndash;&gt;
+    <!--add  <password-encoder hash="md5"/>-->
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailsService"/>
     </authentication-manager>
--->
 
 
 </beans:beans>

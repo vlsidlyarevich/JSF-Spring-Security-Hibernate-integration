@@ -5,10 +5,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+@Repository
+@SuppressWarnings("unchecked")
 public class UserDAOImpl implements UserDAO {
 
     @Autowired
@@ -41,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = this.sessionFactory.getCurrentSession();
         List<UserEntity> users = new ArrayList<UserEntity>();
 
-        Query query = session.createQuery("from UserEntity u where u.login =: login");
+        Query query = session.createQuery("from UserEntity u where u.login = :login");
         query.setParameter("login",login);
         users = query.list();
         if(users.size()>0)return users.get(0);

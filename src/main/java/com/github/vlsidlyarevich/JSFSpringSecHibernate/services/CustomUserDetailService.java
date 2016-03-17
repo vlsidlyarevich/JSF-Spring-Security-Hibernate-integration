@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
+
+@Transactional
 @Service("userDetailsService")
 public class CustomUserDetailService implements UserDetailsService {
 
@@ -23,7 +26,6 @@ public class CustomUserDetailService implements UserDetailsService {
     private UserDAO userDAO;
 
 
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
         UserDetails userDetails = null;
